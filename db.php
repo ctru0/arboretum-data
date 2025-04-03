@@ -11,8 +11,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$conn->query("CREATE DATABASE IF NOT EXISTS $database");
-$conn->select_db($database);
+$conn->query("CREATE DATABASE IF NOT EXISTS $ARBORETUM_DB");
+$conn->select_db($ARBORETUM_DB);
 
 
 $conn->query("
