@@ -22,14 +22,14 @@
         
         <form id="fieldNotes" action="submit_fieldnotes.php" method="POST">
             <!-- Tree Selection -->
-            <label for="tree_id">Select Tree:</label>
-            <select id="tree_id" name="tree_id" required>
+            <label for="TREE_ID">Select Tree:</label>
+            <select id="TREE_ID" name="TREE_ID" required>
                 <option value="">-- Select a Tree --</option>
                 <?php
-                $trees = $conn->query("SELECT tree_id, common_name, scientific_name, PURL FROM trees ORDER BY common_name");
+                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME, SCIENTIFIC_NAME, URL FROM TREES ORDER BY COMMON_NAME");
                 while ($tree = $trees->fetch_assoc()) {
-                    echo "<option value='{$tree['tree_id']}'>
-                            {$tree['common_name']} ({$tree['scientific_name']})
+                    echo "<option value='{$tree['TREE_ID']}'>
+                            {$tree['COMMON_NAME']} ({$tree['SCIENTIFIC_NAME']})
                             </option>";
                 }
                 ?>
@@ -64,7 +64,7 @@
 
     <script>
         // Auto-fill tree info when selected
-        document.getElementById('tree_id').addEventListener('change', function() {
+        document.getElementById('TREE_ID').addEventListener('change', function() {
             const treeId = this.value;
             if (!treeId) {
                 document.getElementById('scientificName').textContent = '-';
@@ -75,8 +75,8 @@
             fetch(`get_tree_metadata.php?tree_id=${treeId}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('scientificName').textContent = data.scientific_name;
-                    document.getElementById('PURL').textContent = data.PURL;
+                    document.getElementById('scientificName').textContent = data.SCIENTIFIC_NAME;
+                    document.getElementById('PURL').textContent = data.URL;
                 })
                 .catch(error => console.error('Error:', error));
         });
