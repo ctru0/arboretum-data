@@ -22,9 +22,9 @@
                 <select id="tree-filter">
                     <option value="">All Trees</option>
                     <?php
-                    $trees = $conn->query("SELECT tree_id, common_name FROM trees ORDER BY common_name");
+                    $trees = $conn->query("SELECT TREE_ID, COMMON_NAME FROM TREES ORDER BY COMMON_NAME");
                     while ($tree = $trees->fetch_assoc()) {
-                        echo "<option value='{$tree['tree_id']}'>{$tree['common_name']}</option>";
+                        echo "<option value='{$tree['TREE_ID']}'>{$tree['COMMON_NAME']}</option>";
                     }
                     ?>
                 </select>
@@ -60,25 +60,25 @@
                 </thead>
                 <tbody id="tree-data-body">
                     <?php
-                    $query = "SELECT t.common_name, t.scientific_name, 
-                                    m.height1, m.height2, m.height3, m.circumference, 
-                                    m.student_name, m.date_submitted
-                                FROM measurements m
-                                JOIN trees t ON m.tree_id = t.tree_id
-                                ORDER BY m.date_submitted DESC";
+                    $query = "SELECT t.COMMON_NAME, t.SCIENTIFIC_NAME, 
+                                    e.HEIGHT_1, e.HEIGHT_2, e.HEIGHT_3, e.CIRCUMFERENCE, 
+                                    e.STUDENT_NAME, e.DATE_SUBMITTED
+                                FROM ENTRIES e
+                                JOIN TREES t ON e.TREE_ID = t.tTREE_ID
+                                ORDER BY e.DATE_SUBMITTED DESC";
                     $result = $conn->query($query);
 
                     while ($row = $result->fetch_assoc()):
                     ?>
                     <tr>
-                        <td><?= htmlspecialchars($row['common_name']) ?></td>
-                        <td><?= htmlspecialchars($row['scientific_name']) ?></td>
-                        <td><?= $row['height1'] ?></td>
-                        <td><?= $row['height2'] ?></td>
-                        <td><?= $row['height3'] ?></td>
-                        <td><?= $row['circumference'] ?></td>
-                        <td><?= htmlspecialchars($row['student_name']) ?></td>
-                        <td><?= date('m/d/Y', strtotime($row['date_submitted'])) ?></td>
+                        <td><?= htmlspecialchars($row['COMMON_NAME']) ?></td>
+                        <td><?= htmlspecialchars($row['SCIENTIFIC_NAME']) ?></td>
+                        <td><?= $row['HEIGHT_1'] ?></td>
+                        <td><?= $row['HEIGHT_2'] ?></td>
+                        <td><?= $row['HEIGHT_3'] ?></td>
+                        <td><?= $row['CIRCUMFERENCE'] ?></td>
+                        <td><?= htmlspecialchars($row['STUDENT_NAME']) ?></td>
+                        <td><?= date('m/d/Y', strtotime($row['DATE_SUBMITTED'])) ?></td>
                     </tr>
                     <?php endwhile; ?>
                 </tbody>
