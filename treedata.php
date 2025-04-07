@@ -57,7 +57,7 @@
             </div>
 
             <div class="student-info">
-                <label for="NetID">Your NetID:</label>
+                <label for="netid">Your NetID:</label>
                 <input type="text" id="netid" name="netid" required>
             </div>
 
