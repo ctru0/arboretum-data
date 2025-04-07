@@ -2,18 +2,18 @@
 include 'includes/db.php';
 
 
-$TREE_ID = (int)$_POST['TREE_ID'];
-$HEIGHT_1 = (float)$_POST['HEIGHT_1'];
-$HEIGHT_2 = (float)$_POST['HEIGHT_2'];
-$HEIGHT_3 = (float)$_POST['HEIGHT_3'];
-$CIRCUMFERENCE = (float)$_POST['CIRCUMFERENCE'];
-$NETID = htmlspecialchars(trim($_POST['NETID']));
+$tree_id = (int)$_POST['tree_id'];
+$height1 = (float)$_POST['height1'];
+$height2 = (float)$_POST['height2'];
+$height3 = (float)$_POST['height3'];
+$circumference = (float)$_POST['circumference'];
+$student_name = htmlspecialchars(trim($_POST['student_name']));
 
 $stmt = $conn->prepare("
-    INSERT INTO ENTRIES 
-    (TREE_ID, HEIGHT_1, HEIGHT_2, HEIGHT_3, CIRCUMFERENCE, NETID) 
+    INSERT INTO measurements 
+    (tree_id, height1, height2, height3, circumference, student_name) 
     VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("idddds", $TREE_ID, $HEIGHT_1, $HEIGHT_2, $HEIGHT_3, $CIRCUMFERENCE, $NETID);
+$stmt->bind_param("idddds", $tree_id, $height1, $height2, $height3, $circumference, $student_name);
 
 if ($stmt->execute()) {
     header("Location: view_data.php?success=1");

@@ -10,6 +10,8 @@
     <div class="header">
         <img src="assets/masonlogo.png" alt="Logo">
         <h1><a href="index.php">Tree Data Entry</a></h1>
+        <a href="treedata.php">Tree Data</a>
+        <a href="fieldnotes.php">Field Notes</a>
         <a href="view_data.php">View All Data</a>
     </div>
 
@@ -55,7 +57,7 @@
             </div>
 
             <div class="student-info">
-                <label for="student_name">Your Name:</label>
+                <label for="NetID">Your Name:</label>
                 <input type="text" id="student_name" name="student_name" required>
             </div>
 
