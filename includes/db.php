@@ -7,9 +7,6 @@ $database = 'ARBORETUM_DB';
 
 $conn = new mysqli($host, $user, $password);
 
-if (!$conn->select_db($database)) {
-    die("Database selection failed: " . $conn->error);
-}
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -18,12 +15,16 @@ if ($conn->connect_error) {
 $conn->query("CREATE DATABASE IF NOT EXISTS $database");
 $conn->select_db($database);
 
+if (!$conn->select_db($database)) {
+    die("Database selection failed: " . $conn->error);
+}
+
 $conn->query("
     CREATE TABLE IF NOT EXISTS TREES (
-    	TREE_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE,
-    	URL VARCHAR(60) NOT NULL UNIQUE,
-	COMMON_NAME VARCHAR(50) NOT NULL,
-    	SCIENTIFIC_NAME VARCHAR(40) NOT NULL
+        TREE_ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE,
+        URL VARCHAR(60) NOT NULL UNIQUE,
+        COMMON_NAME VARCHAR(50) NOT NULL,
+        SCIENTIFIC_NAME VARCHAR(40) NOT NULL
     );"
 );
 
@@ -40,7 +41,7 @@ $conn->query("
     AVG_HEIGHT DECIMAL(3,2) NOT NULL,
     TREE_ID INT NOT NULL,
     FOREIGN KEY (TREE_ID) REFERENCES TREES(TREE_ID),
-    NETID VARCHAR(15) NOT NULL,
+    NETID VARCHAR(15) NOT NULL
     );"
     );
 
