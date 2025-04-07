@@ -12,6 +12,8 @@
         <img src="assets/masonlogo.png" alt="Mason Logo">
         <h1><a href="index.php">Arboretum</a></h1>
         <a href="treedata.php">Tree Data</a>
+        <a href="fieldnotes.php">Field Notes</a>
+        <a href="view_data.php">View All Data</a>
     </div>
     <div class="data-view-container">
         <h1>Tree Measurements</h1>
@@ -62,9 +64,9 @@
                     <?php
                     $query = "SELECT t.COMMON_NAME, t.SCIENTIFIC_NAME, 
                                     e.HEIGHT_1, e.HEIGHT_2, e.HEIGHT_3, e.CIRCUMFERENCE, 
-                                    e.STUDENT_NAME, e.DATE_SUBMITTED
+                                    e.NETID, e.DATE_SUBMITTED
                                 FROM ENTRIES e
-                                JOIN TREES t ON e.TREE_ID = t.tTREE_ID
+                                JOIN TREES t ON e.TREE_ID = t.TREE_ID
                                 ORDER BY e.DATE_SUBMITTED DESC";
                     $result = $conn->query($query);
 
