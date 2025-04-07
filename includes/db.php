@@ -4,7 +4,6 @@ $user = 'root';
 $password = 'Password';
 $database = 'ARBORETUM_DB';
 
-
 $conn = new mysqli($host, $user, $password);
 
 
