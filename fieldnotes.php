@@ -58,7 +58,6 @@
                 </label>
             </div>
 
-            <!-- Consolidated Notes Text Area -->
             <label for="notes">Field Notes:</label>
             <textarea id="notes" name="notes" rows="6" placeholder="Enter all observations about the tree and signage..."></textarea>
 
