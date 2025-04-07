@@ -27,10 +27,14 @@
                 <option value="">-- Select a Tree --</option>
                 <?php
                 $trees = $conn->query("SELECT TREE_ID, COMMON_NAME, SCIENTIFIC_NAME, URL FROM TREES ORDER BY COMMON_NAME");
-                while ($tree = $trees->fetch_assoc()) {
-                    echo "<option value='{$tree['TREE_ID']}'>
-                            {$tree['COMMON_NAME']} ({$tree['SCIENTIFIC_NAME']})
-                            </option>";
+                if ($trees && $trees->num_rows > 0) {
+                    while ($tree = $trees->fetch_assoc()) {
+                        echo "<option value='{$tree['TREE_ID']}'>
+                                {$tree['COMMON_NAME']} ({$tree['SCIENTIFIC_NAME']})
+                                </option>";
+                    }
+                } else {
+                    echo "<option value=''>No trees available</option>";
                 }
                 ?>
             </select>
@@ -38,7 +42,7 @@
             <!-- Auto-filled Tree Info -->
             <div id="treeInfo" class="metadata-box">
                 <p><strong>Scientific Name:</strong> <span id="scientificName">-</span></p>
-                <p><strong>PlantSoon URL:</strong> <span id="PURL">-</span></p>
+                <p><strong>PlantSoon URL:</strong> <a id="PURL" href="#" target="_blank">-</a></p>
             </div>
 
             <!-- Checkbox Questions -->
@@ -69,6 +73,7 @@
             if (!treeId) {
                 document.getElementById('scientificName').textContent = '-';
                 document.getElementById('PURL').textContent = '-';
+                document.getElementById('PURL').href = '#';
                 return;
             }
 
@@ -77,8 +82,14 @@
                 .then(data => {
                     document.getElementById('scientificName').textContent = data.SCIENTIFIC_NAME;
                     document.getElementById('PURL').textContent = data.URL;
+                    document.getElementById('PURL').href = data.URL;
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('Error fetching tree data:', error);
+                    document.getElementById('scientificName').textContent = 'Error loading data';
+                    document.getElementById('PURL').textContent = 'Error loading data';
+                    document.getElementById('PURL').href = '#';
+                });
         });
     </script>
 </body>
