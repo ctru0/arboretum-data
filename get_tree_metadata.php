@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 include 'includes/db.php';
 
-$treeId = (int)$_GET['tree_id'];
+$treeId = (int)$_GET['TREE_ID'];
 $stmt = $conn->prepare("SELECT SCIENTIFIC_NAME, URL FROM TREES WHERE TREE_ID = ?");
 $stmt->bind_param("i", $treeId);
 $stmt->execute();
