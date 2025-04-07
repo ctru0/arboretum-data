@@ -18,12 +18,12 @@
     <div class="form-container">
         <form id="treeForm" action="submit_data.php" method="POST">
             <label for="tree">Select Tree:</label>
-            <select id="tree" name="tree_id" required>
+            <select id="tree" name="TREE_ID" required>
                 <option value="">-- Select a Tree --</option>
                 <?php
-                $trees = $conn->query("SELECT tree_id, common_name FROM trees ORDER BY common_name");
+                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME FROM TREES ORDER BY COMMON_NAME");
                 while ($tree = $trees->fetch_assoc()) {
-                    echo "<option value='{$tree['tree_id']}'>{$tree['common_name']}</option>";
+                    echo "<option value='{$tree['TREE_ID']}'>{$tree['COMMON_NAME']}</option>";
                 }
                 ?>
             </select>
@@ -57,8 +57,8 @@
             </div>
 
             <div class="student-info">
-                <label for="NetID">Your Name:</label>
-                <input type="text" id="student_name" name="student_name" required>
+                <label for="NetID">Your NetID:</label>
+                <input type="text" id="netid" name="netid" required>
             </div>
 
             <button type="submit" class="submit-btn">Submit Data</button>
@@ -77,8 +77,8 @@
             fetch(`get_tree_metadata.php?tree_id=${treeId}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('sciName').textContent = data.scientific_name;
-                    document.getElementById('urlCode').textContent = data.PURL;
+                    document.getElementById('sciName').textContent = data.SCIENTIFIC_NAME;
+                    document.getElementById('urlCode').textContent = data.URL;
                 })
                 .catch(error => console.error('Error:', error));
         });
