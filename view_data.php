@@ -79,7 +79,7 @@
                         <td><?= $row['HEIGHT_2'] ?></td>
                         <td><?= $row['HEIGHT_3'] ?></td>
                         <td><?= $row['CIRCUMFERENCE'] ?></td>
-                        <td><?= htmlspecialchars($row['STUDENT_NAME']) ?></td>
+                        <td><?= htmlspecialchars($row['NETID']) ?></td>
                         <td><?= date('m/d/Y', strtotime($row['DATE_SUBMITTED'])) ?></td>
                     </tr>
                     <?php endwhile; ?>

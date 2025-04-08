@@ -22,27 +22,21 @@
         
         <form id="fieldNotes" action="submit_fieldnotes.php" method="POST">
             <!-- Tree Selection -->
-            <label for="TREE_ID">Select Tree:</label>
-            <select id="TREE_ID" name="TREE_ID" required>
-                <option value="">-- Select a Tree --</option>
+            <label for="tree">Select Tree:</label>
+            <select id="tree" name="TREE_ID" required>
+            <option value="">-- Select a Tree --</option>
                 <?php
-                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME, SCIENTIFIC_NAME, URL FROM TREES ORDER BY COMMON_NAME");
-                if ($trees && $trees->num_rows > 0) {
-                    while ($tree = $trees->fetch_assoc()) {
-                        echo "<option value='{$tree['TREE_ID']}'>
-                                {$tree['COMMON_NAME']} ({$tree['SCIENTIFIC_NAME']})
-                                </option>";
-                    }
-                } else {
-                    echo "<option value=''>No trees available</option>";
+                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME FROM TREES ORDER BY COMMON_NAME");
+                while ($tree = $trees->fetch_assoc()) {
+                    echo "<option value='{$tree['TREE_ID']}'>{$tree['COMMON_NAME']}</option>";
                 }
                 ?>
             </select>
             
             <!-- Auto-filled Tree Info -->
-            <div id="treeInfo" class="metadata-box">
-                <p><strong>Scientific Name:</strong> <span id="scientificName">-</span></p>
-                <p><strong>PlantSoon URL:</strong> <a id="PURL" href="#" target="_blank">-</a></p>
+            <div id="treeMetadata" class="metadata-box">
+                <p><strong>Scientific Name:</strong> <span id="sciName">-</span></p>
+                <p><strong>Plantsoon URL:</strong> <span id="PURL">-</span></p>
             </div>
 
             <!-- Checkbox Questions -->
@@ -58,6 +52,7 @@
                 </label>
             </div>
 
+            <!-- Consolidated Notes Text Area -->
             <label for="notes">Field Notes:</label>
             <textarea id="notes" name="notes" rows="6" placeholder="Enter all observations about the tree and signage..."></textarea>
 
@@ -67,28 +62,21 @@
 
     <script>
         // Auto-fill tree info when selected
-        document.getElementById('TREE_ID').addEventListener('change', function() {
+        document.getElementById('tree').addEventListener('change', function() {
             const treeId = this.value;
             if (!treeId) {
-                document.getElementById('scientificName').textContent = '-';
+                document.getElementById('sciName').textContent = '-';
                 document.getElementById('PURL').textContent = '-';
-                document.getElementById('PURL').href = '#';
                 return;
             }
 
             fetch(`get_tree_metadata.php?tree_id=${treeId}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('scientificName').textContent = data.SCIENTIFIC_NAME;
-                    document.getElementById('PURL').textContent = data.URL;
-                    document.getElementById('PURL').href = data.URL;
+                    document.getElementById('sciName').textContent = data.SCIENTIFIC_NAME;
+                    document.getElementById('PURL').textContent = data.PURL;
                 })
-                .catch(error => {
-                    console.error('Error fetching tree data:', error);
-                    document.getElementById('scientificName').textContent = 'Error loading data';
-                    document.getElementById('PURL').textContent = 'Error loading data';
-                    document.getElementById('PURL').href = '#';
-                });
+                .catch(error => console.error('Error:', error));
         });
     </script>
 </body>
