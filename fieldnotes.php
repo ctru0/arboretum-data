@@ -50,17 +50,21 @@
                     <input type="checkbox" name="tree_missing" value="1">
                     Is the tree missing?
                 </label>
-                
+            </div>
+
+            <label for="notes">Field Notes:</label>
+            <textarea id="notes" name="notes" rows="6" placeholder="Enter all observations about the tree"></textarea>
+            
+            <div class="checkbox-group">
                 <label class="checkbox-label">
                     <input type="checkbox" name="sign_missing" value="1">
                     Is the sign missing?
                 </label>
             </div>
 
-            <!-- Consolidated Notes Text Area -->
-            <label for="notes">Field Notes:</label>
-            <textarea id="notes" name="notes" rows="6" placeholder="Enter all observations about the tree and signage..."></textarea>
-
+            <label for="notes">Sign Notes:</label>
+            <textarea id="sign_notes" name="sign_notes" rows="6" placeholder="Enter all observations about thesignage"></textarea>
+            
             <button type="submit" class="submit-btn">Submit Field Notes</button>
         </form>
     </div>
