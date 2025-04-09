@@ -6,7 +6,7 @@ db_config = {
     'host': 'localhost',
     'user': 'root',
     'password': 'Password',
-    'database': 'test'
+    'database': 'ARBORETUM_DB'
 }
 
 csv_file = 'PlantSoon_Tree_URLs.csv'  
