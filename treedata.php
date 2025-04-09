@@ -12,7 +12,7 @@
         <h1><a href="index.php">Tree Data Entry</a></h1>
         <a href="treedata.php">Tree Data</a>
         <a href="fieldnotes.php">Field Notes</a>
-        <a href="view_data.php">View All Data</a>
+        <a href="view_tree_data.php">View All Data</a>
     </div>
 
     <div class="form-container">

@@ -16,7 +16,7 @@ $stmt = $conn->prepare("
 $stmt->bind_param("idddds", $tree_id, $height1, $height2, $height3, $circumference, $netid);
 
 if ($stmt->execute()) {
-    header("Location: view_data.php?success=1");
+    header("Location: view_tree_data.php?success=1");
 } else {
     header("Location: treedata.php?error=1");
 }
