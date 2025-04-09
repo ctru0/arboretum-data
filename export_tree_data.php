@@ -29,8 +29,8 @@ $result = $conn->query($query);
 
 while ($row = $result->fetch_assoc()) {
     fputcsv($output, array(
-        $row['common_name'],
-        $row['scientific_name'],
+        $row['COMMON_NAME'],
+        $row['SCIENTIFIC_NAME'],
         $row['HEIGHT_1'],
         $row['HEIGHT_2'],
         $row['HEIGHT_3'],
