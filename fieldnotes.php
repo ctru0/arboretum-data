@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Collect Field Notes</title>
+
+    <!-- import stylesheet and font -->
     <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <div class="header">
         <img src="assets/masonlogo.png" alt="Mason Logo">
-        <h1><a href="index.php">Arboretum</a></h1>
-        <a href="treedata.php">Tree Data</a>
+        <h1><a href="index.php">GMU Arboretum</a></h1>
+        <a href="treedata.php">Tree Measurements</a>
         <a href="fieldnotes.php">Field Notes</a>
         <a href="view_data.php">View All Data</a>
     </div>

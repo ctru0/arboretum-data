@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Tree Data Entry</title>
+
+    <!-- import stylesheet and font -->
     <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="header">
-        <img src="assets/masonlogo.png" alt="Logo">
-        <h1><a href="index.php">Tree Data Entry</a></h1>
-        <a href="treedata.php">Tree Data</a>
+        <img src="assets/masonlogo.png" alt="Mason Logo">
+        <h1><a href="index.php">GMU Arboretum</a></h1>
+        <a href="treedata.php">Tree Measurements</a>
         <a href="fieldnotes.php">Field Notes</a>
         <a href="view_data.php">View All Data</a>
     </div>
