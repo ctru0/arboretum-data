@@ -58,3 +58,13 @@ h2 {
     padding: 15px 20px;
     border-radius: 30px;
 }
+
+.download-buton {
+    color: white;
+    display: inline-block;
+    background-color: #ffc733;
+    padding: 10px 10px;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 5px;  
+}

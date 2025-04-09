@@ -4,24 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>View All Data</title>
+
+    <!-- import stylesheet and font -->
     <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree&display=swap" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
+    <!-- Header -->
     <div class="header">
         <img src="assets/masonlogo.png" alt="Mason Logo">
-        <h1><a href="index.php">Arboretum</a></h1>
-        <a href="treedata.php">Tree Data</a>
+        <h1><a href="index.php">GMU Arboretum</a></h1>
+        <a href="treedata.php">Tree Measurements</a>
         <a href="fieldnotes.php">Field Notes</a>
         <a href="view_tree_data.php">View Tree Data</a>
         <a href="view_fieldnotes.php">View Field Notes</a>
-
     </div>
+
     <div class="data-view-container">
         <h1>Tree Measurements</h1>
 
         <div class="action-buttons">
-            <a href="export_tree_data.php?type=ENTRIES" class="download-buton">Download Tree Data</a>
+            <a href="export_tree_data.php?type=ENTRIES" class="download-buton">Download Tree Data (.csv)</a>
         </div>
 
         <div class="filter-section">

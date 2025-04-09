@@ -1,7 +1,7 @@
 <?php
-$host = 'localhost';
+$host = 'cinbook.local';
 $user = 'root';
-$password = 'Password';
+$password = '0912cintru';
 $database = 'ARBORETUM_DB';
 
 $conn = new mysqli($host, $user, $password);

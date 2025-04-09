@@ -10,14 +10,14 @@
 </head>
 <body>
 
+    <!-- Header -->
     <div class="header">
         <img src="assets/masonlogo.png" alt="Mason Logo">
-        <h1><a href="index.php">Arboretum</a></h1>
-        <a href="treedata.php">Tree Data</a>
+        <h1><a href="index.php">GMU Arboretum</a></h1>
+        <a href="treedata.php">Tree Measurements</a>
         <a href="fieldnotes.php">Field Notes</a>
         <a href="view_tree_data.php">View Tree Data</a>
         <a href="view_fieldnotes.php">View Field Notes</a>
-
     </div>
 
     <div class="content-container">
