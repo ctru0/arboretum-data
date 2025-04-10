@@ -46,7 +46,7 @@
 
             <div class="filter-group">
                 <label for="person-filter">Filter by Person:</label>
-                <input type="text" id="person-filter" placeholder="Enter name...">
+                <input type="text" id="person-filter" placeholder="Enter NETID">
             </div>
 
             <div class="filter-group">

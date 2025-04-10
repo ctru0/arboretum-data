@@ -26,12 +26,18 @@
             <select id="tree" name="TREE_ID" required>
                 <option value="">-- Select a Tree --</option>
                 <?php
-                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME FROM TREES ORDER BY COMMON_NAME");
+                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME, PURL FROM TREES ORDER BY COMMON_NAME");
                 while ($tree = $trees->fetch_assoc()) {
-                    echo "<option value='{$tree['TREE_ID']}'>{$tree['COMMON_NAME']}</option>";
+                    echo "<option value='{$tree['TREE_ID']}' data-purl='{$tree['PURL']}'>{$tree['COMMON_NAME']}</option>";
                 }
                 ?>
             </select>
+
+            <div class="filter-group">
+                <label for="URL-filter">Filter by Plantsoon URL:</label>
+                <input type="text" id="URL-filter" placeholder="Enter Plantsoon URL...">
+                <button type="button" id="clear-filter" class="clear-btn">Clear Filter</button>
+            </div>
 
             <div id="treeMetadata" class="metadata-box">
                 <p><strong>Scientific Name:</strong> <span id="sciName">-</span></p>
@@ -86,6 +92,60 @@
                     document.getElementById('PURL').textContent = data.PURL;
                 })
                 .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('URL-filter').addEventListener('input', function() {
+            const filterValue = this.value.toLowerCase();
+            const treeSelect = document.getElementById('tree');
+            const options = treeSelect.querySelectorAll('option');
+            
+            let hasVisibleOptions = false;
+            
+            options.forEach(option => {
+                if (option.value === '') {
+                    option.style.display = ''; 
+                    return;
+                }
+                
+                const purl = option.getAttribute('data-purl') || '';
+                if (purl.toLowerCase().includes(filterValue)) {
+                    option.style.display = '';
+                    hasVisibleOptions = true;
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+            
+            // 
+            if (!hasVisibleOptions && filterValue !== '') {
+                const noResults = treeSelect.querySelector('option[value=""][data-no-results]');
+                if (!noResults) {
+                    const noResultsOption = document.createElement('option');
+                    noResultsOption.value = '';
+                    noResultsOption.textContent = '-- No trees found --';
+                    noResultsOption.setAttribute('data-no-results', 'true');
+                    treeSelect.appendChild(noResultsOption);
+                }
+            } else {
+                const noResultsOption = treeSelect.querySelector('option[data-no-results]');
+                if (noResultsOption) {
+                    noResultsOption.remove();
+                }
+            }
+        });
+        document.getElementById('clear-filter').addEventListener('click', function() {
+            document.getElementById('URL-filter').value = '';
+            const treeSelect = document.getElementById('tree');
+            const options = treeSelect.querySelectorAll('option');
+            
+            options.forEach(option => {
+                option.style.display = '';
+            });
+            
+            const noResultsOption = treeSelect.querySelector('option[data-no-results]');
+            if (noResultsOption) {
+                noResultsOption.remove();
+            }
         });
     </script>
 </body>
