@@ -54,6 +54,19 @@
                 <input type="date" id="date-filter">
             </div>
 
+            <div class="filter-group">
+                <label for="year-filter">Filter by Year:</label>
+                <select id="year-filter">
+                <option value="">All Years</option>
+                <?php
+                    $years = $conn->query("SELECT DISTINCT YEAR(DATE_SUBMITTED) AS year FROM ENTRIES ORDER BY year DESC");
+                    while ($year = $years->fetch_assoc()) {
+                        echo "<option value='{$year['year']}'>{$year['year']}</option>";
+                    }
+                ?>
+                </select>
+            </div>
+
             <button id="reset-filters" class="filter-btn">Reset Filters</button>
         </div>
 
