@@ -65,6 +65,11 @@
             <label for="notes">Sign Notes:</label>
             <textarea id="sign_notes" name="sign_notes" rows="6" placeholder="Enter all observations about thesignage"></textarea>
             
+            <div class="student-info">
+                <label for="netid">Your NetID:</label>
+                <input type="text" id="netid" name="NETID" required>
+            </div>
+
             <button type="submit" class="submit-btn">Submit Field Notes</button>
         </form>
     </div>

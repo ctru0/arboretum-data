@@ -24,6 +24,11 @@
     <div class="data-view-container">
         <h1>Field Notes</h1>
 
+
+        <div class="action-buttons">
+            <a href="export_fieldnotes.php?type=FIELD_NOTES" class="download-buton">Download Tree Data (.csv)</a>
+        </div>
+
         <div class="filter-section">
             <div class="filter-group">
                 <label for="tree-filter">Filter by Tree:</label>

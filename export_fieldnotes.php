@@ -6,42 +6,45 @@ header('Content-Disposition: attachment; filename="tree_measurements_'.date('Y-m
 
 $output = fopen('php://output', 'w');
 
-
 fputcsv($output, array(
     'Tree Common Name',
     'Scientific Name',
     'Plantsoon URL',
-    'Height 1 (m)',
-    'Height 2 (m)',
-    'Height 3 (m)',
-    'Circumference (cm)',
+    'Tree Missing?',
+    'Sign Missing?',
+    'Tree Notes',
+    'Sign Notes',
     'Submitted By',
     'Date Submitted'
 ));
 
-// Write data
 $query = "SELECT t.COMMON_NAME, t.SCIENTIFIC_NAME, t.PURL,
-                m.HEIGHT_1, m.HEIGHT_2, m.HEIGHT_3, m.CIRCUMFERENCE, 
+                m.TREE_MISSING, m.SIGN_MISSING, m.TREE_NOTES, m.OTHER_NOTES, 
                 m.NETID, m.DATE_SUBMITTED
-        FROM ENTRIES m
+        FROM FIELD_NOTES m
         JOIN trees t ON m.TREE_ID = t.TREE_ID
         ORDER BY m.DATE_SUBMITTED DESC";
 $result = $conn->query($query);
+
+if ($result === false) {
+    die("Query failed: " . $conn->error);
+}
 
 while ($row = $result->fetch_assoc()) {
     fputcsv($output, array(
         $row['COMMON_NAME'],
         $row['SCIENTIFIC_NAME'],
         $row['PURL'],
-        $row['HEIGHT_1'],
-        $row['HEIGHT_2'],
-        $row['HEIGHT_3'],
-        $row['CIRCUMFERENCE'],
+        $row['TREE_MISSING'] ? 'Yes' : 'No',  
+        $row['SIGN_MISSING'] ? 'Yes' : 'No',  
+        $row['TREE_NOTES'],
+        $row['OTHER_NOTES'],
         $row['NETID'],
         date('m/d/Y', strtotime($row['DATE_SUBMITTED']))
     ));
 }
 
 fclose($output);
+$conn->close();
 exit();
 ?>
