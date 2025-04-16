@@ -23,38 +23,39 @@ try:
 
         # Retrieve all existing scientific names from the database
         cursor.execute("SELECT scientific_name FROM trees")
-        existing_names = set([row[0] for row in cursor.fetchall()])
+        existing_names = set([row[0].strip().lower() for row in cursor.fetchall()])  # Use lower() to handle case insensitivity
 
         for index, row in df.iterrows():
-            scientific_name = row['Scientific Name'].strip()
+            # Remove leading/trailing spaces and convert to lower case for comparison
+            scientific_name = row['Scientific Name'].strip().lower()
 
-            # Check if the scientific name already exists in the database
-            if scientific_name in existing_names:
-                # If it exists, we append a suffix like (2), (3), etc.
+            # Debugging: print name being processed
+            print(f"Processing: {row['Scientific Name']}")
+
+            # Check if the scientific name already exists in the database (case insensitive)
+            if scientific_name not in existing_names:
+                # If it doesn't exist, insert it without any suffix
+                cursor.execute("""
+                    INSERT INTO trees (common_name, scientific_name, PURL)
+                    VALUES (%s, %s, %s)
+                """, (row['Common Name'], row['Scientific Name'], row['PlantSoonURL']))
+                existing_names.add(scientific_name)  # Add base name to the set
+                print(f"Inserted base name: {row['Scientific Name']}")
+            else:
+                # If it exists, add a suffix (2), (3), etc.
                 if scientific_name not in unique_names:
                     unique_names[scientific_name] = 1  # Start with (2) for next occurrences
                 else:
                     unique_names[scientific_name] += 1
-                scientific_name = f"{scientific_name} ({unique_names[scientific_name]})"
-                df.at[index, 'Scientific Name'] = scientific_name
+                modified_name = f"{row['Scientific Name']} ({unique_names[scientific_name]})"
+                
+                # Insert modified name with suffix
+                cursor.execute("""
+                    INSERT INTO trees (common_name, scientific_name, PURL)
+                    VALUES (%s, %s, %s)
+                """, (row['Common Name'], modified_name, row['PlantSoonURL']))
+                print(f"Inserted modified name: {modified_name}")
 
-            # Add the base or modified scientific name to the set of existing names
-            existing_names.add(scientific_name)
-            
-            common_name = row['Common Name']
-            purl = row['PlantSoonURL']
-
-            # Insert or update the entry in the database
-            query = """
-            INSERT INTO trees (common_name, scientific_name, PURL)
-            VALUES (%s, %s, %s)
-            ON DUPLICATE KEY UPDATE
-            common_name = VALUES(common_name),
-            scientific_name = VALUES(scientific_name),
-            PURL = VALUES(PURL)
-            """
-            cursor.execute(query, (common_name, scientific_name, purl))
-        
         connection.commit()
         print("Data inserted successfully!")
 except Error as e:
