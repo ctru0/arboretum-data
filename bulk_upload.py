@@ -22,6 +22,7 @@ for index, row in df.iterrows():
         df.at[index, 'Scientific Name'] = f"{scientific_name} ({unique_names[scientific_name]})"
     else:
         unique_names[scientific_name] = 1
+        # Do NOT modify the name for the first occurrence
 
 
 try:
