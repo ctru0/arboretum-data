@@ -21,7 +21,6 @@ $conn->query("
         COMMON_NAME VARCHAR(50) NOT NULL,
         SCIENTIFIC_NAME VARCHAR(70) NOT NULL,
         PURL VARCHAR(266) NOT NULL UNIQUE,
-        UNIQUE KEY (COMMON_NAME)
     );");
 
 
