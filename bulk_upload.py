@@ -21,7 +21,7 @@ for index, row in df.iterrows():
         unique_names[scientific_name] += 1
         df.at[index, 'Scientific Name'] = f"{scientific_name}{unique_names[scientific_name]}"
     else:
-        unique_names[scientific_name] = 0
+        unique_names[scientific_name] = 1
 
 
 try:
