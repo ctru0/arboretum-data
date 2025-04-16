@@ -19,7 +19,7 @@ for index, row in df.iterrows():
     scientific_name = row['Scientific Name']
     if scientific_name in unique_names:
         unique_names[scientific_name] += 1
-        df.at[index, 'Scientific Name'] = f"{scientific_name}{unique_names[scientific_name]}"
+        df.at[index, 'Scientific Name'] = f"{scientific_name} ({unique_names[scientific_name]})"
     else:
         unique_names[scientific_name] = 1
 
