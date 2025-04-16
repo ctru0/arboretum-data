@@ -45,14 +45,11 @@ try:
             purl = row['PlantSoonURL']
 
             query = """
-            INSERT INTO trees (common_name, scientific_name, PURL)
-            VALUES (%s, %s, %s)
-            ON DUPLICATE KEY UPDATE
-            common_name = VALUES(common_name),
-            scientific_name = VALUES(scientific_name),
-            PURL = VALUES(PURL)
+                INSERT INTO trees (common_name, scientific_name, PURL)
+                VALUES (%s, %s, %s)
             """
-            cursor.execute(query, (common_name, scientific_name, purl))
+
+        cursor.execute(query, (common_name, scientific_name, purl))
         
         connection.commit()
         print("Data inserted successfully!")
