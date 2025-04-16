@@ -16,7 +16,7 @@ df.rename(columns={'PlantSoon URL': 'PlantSoonURL'}, inplace=True)
 
 unique_names = {}
 for index, row in df.iterrows():
-    scientific_name = row['Scientific Name'].strip()
+    scientific_name = row['Scientific Name'].strip().lower()
     if scientific_name not in unique_names:
         unique_names[scientific_name] = 1  # first time, don't change the name
     else:
