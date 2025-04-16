@@ -14,6 +14,7 @@ df = pd.read_csv(csv_file)
 
 df.rename(columns={'PlantSoon URL': 'PlantSoonURL'}, inplace=True)
 
+# Dictionary to keep track of duplicate scientific names
 unique_names = {}
 
 try:
@@ -21,39 +22,40 @@ try:
     if connection.is_connected():
         cursor = connection.cursor()
 
-        # Retrieve all existing scientific names from the database
-        cursor.execute("SELECT scientific_name FROM trees")
-        existing_names = set([row[0].strip().lower() for row in cursor.fetchall()])  # Use lower() to handle case insensitivity
+        # Retrieve all existing tree IDs from the database
+        cursor.execute("SELECT tree_id FROM trees")
+        existing_tree_ids = {row[0] for row in cursor.fetchall()}
 
         for index, row in df.iterrows():
-            # Remove leading/trailing spaces and convert to lower case for comparison
-            scientific_name = row['Scientific Name'].strip().lower()
+            tree_id = row['tree_id']  # Assuming you have 'tree_id' in your CSV file
+            scientific_name = row['Scientific Name'].strip()
+            common_name = row['Common Name'].strip()
 
             # Debugging: print name being processed
-            print(f"Processing: {row['Scientific Name']}")
+            print(f"Processing: {scientific_name}")
 
-            # Check if the scientific name already exists in the database (case insensitive)
-            if scientific_name not in existing_names:
-                # If it doesn't exist, insert it without any suffix
+            # Check if the tree_id already exists in the database
+            if tree_id not in existing_tree_ids:
+                # If tree_id does not exist, insert the record
                 cursor.execute("""
-                    INSERT INTO trees (common_name, scientific_name, PURL)
-                    VALUES (%s, %s, %s)
-                """, (row['Common Name'], row['Scientific Name'], row['PlantSoonURL']))
-                existing_names.add(scientific_name)  # Add base name to the set
-                print(f"Inserted base name: {row['Scientific Name']}")
+                    INSERT INTO trees (tree_id, common_name, scientific_name, PURL)
+                    VALUES (%s, %s, %s, %s)
+                """, (tree_id, common_name, scientific_name, row['PlantSoonURL']))
+                existing_tree_ids.add(tree_id)  # Add the tree_id to the set
+                print(f"Inserted base name: {scientific_name}")
             else:
-                # If it exists, add a suffix (2), (3), etc.
+                # If tree_id exists, we may want to check the scientific name and update if needed
                 if scientific_name not in unique_names:
                     unique_names[scientific_name] = 1  # Start with (2) for next occurrences
                 else:
                     unique_names[scientific_name] += 1
-                modified_name = f"{row['Scientific Name']} ({unique_names[scientific_name]})"
+                modified_name = f"{scientific_name} ({unique_names[scientific_name]})"
                 
                 # Insert modified name with suffix
                 cursor.execute("""
-                    INSERT INTO trees (common_name, scientific_name, PURL)
-                    VALUES (%s, %s, %s)
-                """, (row['Common Name'], modified_name, row['PlantSoonURL']))
+                    INSERT INTO trees (tree_id, common_name, scientific_name, PURL)
+                    VALUES (%s, %s, %s, %s)
+                """, (tree_id, common_name, modified_name, row['PlantSoonURL']))
                 print(f"Inserted modified name: {modified_name}")
 
         connection.commit()
