@@ -30,15 +30,15 @@ try:
 
             # Check if the scientific name already exists in the database
             if scientific_name in existing_names:
+                # If it exists, we append a suffix like (2), (3), etc.
                 if scientific_name not in unique_names:
-                    unique_names[scientific_name] = 1
+                    unique_names[scientific_name] = 1  # Start with (2) for next occurrences
                 else:
                     unique_names[scientific_name] += 1
-                # Modify the scientific name by appending (2), (3), etc.
                 scientific_name = f"{scientific_name} ({unique_names[scientific_name]})"
                 df.at[index, 'Scientific Name'] = scientific_name
 
-            # Add the modified or original name to the set of existing names
+            # Add the base or modified scientific name to the set of existing names
             existing_names.add(scientific_name)
             
             common_name = row['Common Name']
