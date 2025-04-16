@@ -26,9 +26,9 @@
             <select id="tree" name="TREE_ID" required>
                 <option value="">-- Select a Tree --</option>
                 <?php
-                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME, PURL FROM TREES ORDER BY COMMON_NAME");
+                $trees = $conn->query("SELECT TREE_ID, SCIENTIFIC_NAME, PURL FROM TREES ORDER BY SCIENTIFIC_NAME");
                 while ($tree = $trees->fetch_assoc()) {
-                    echo "<option value='{$tree['TREE_ID']}' data-purl='{$tree['PURL']}'>{$tree['COMMON_NAME']}</option>";
+                    echo "<option value='{$tree['TREE_ID']}' data-purl='{$tree['PURL']}'>{$tree['SCIENTIFIC_NAME']}</option>";
                 }
                 ?>
             </select>
@@ -40,7 +40,7 @@
             </div>
 
             <div id="treeMetadata" class="metadata-box">
-                <p><strong>Scientific Name:</strong> <span id="sciName">-</span></p>
+                <p><strong>Common Name:</strong> <span id="sciName">-</span></p>
                 <p><strong>Plantsoon URL:</strong> <span id="PURL">-</span></p>
             </div>
 
