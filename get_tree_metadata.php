@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 include 'includes/db.php';
 
 $treeId = (int)$_GET['tree_id'];
-$stmt = $conn->prepare("SELECT COMMON_NAME, PURL FROM TREES WHERE TREE_ID = ?");
+$stmt = $conn->prepare("SELECT COMMON_NAME, SCIENTIFIC_NAME, PURL FROM TREES WHERE TREE_ID = ?");
 $stmt->bind_param("i", $treeId);
 $stmt->execute();
 $result = $stmt->get_result();
