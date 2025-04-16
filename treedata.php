@@ -40,7 +40,8 @@
             </div>
 
             <div id="treeMetadata" class="metadata-box">
-                <p><strong>Common Name:</strong> <span id="sciName">-</span></p>
+                <p><strong>Common Name:</strong> <span id="commonName">-</span></p>
+                <p><strong>Scientific Name:</strong> <span id="sciName">-</span></p>
                 <p><strong>Plantsoon URL:</strong> <span id="PURL">-</span></p>
             </div>
 
@@ -80,6 +81,7 @@
         document.getElementById('tree').addEventListener('change', function() {
             const treeId = this.value;
             if (!treeId) {
+                document.getElementById('commonName').textContent = '-';
                 document.getElementById('sciName').textContent = '-';
                 document.getElementById('PURL').textContent = '-';
                 return;
@@ -88,6 +90,7 @@
             fetch(`get_tree_metadata.php?tree_id=${treeId}`)
                 .then(response => response.json())
                 .then(data => {
+                    document.getElementById('commonName').textContent = data.COMMON_NAME;
                     document.getElementById('sciName').textContent = data.SCIENTIFIC_NAME;
                     document.getElementById('PURL').textContent = data.PURL;
                 })
@@ -98,15 +101,15 @@
             const filterValue = this.value.toLowerCase();
             const treeSelect = document.getElementById('tree');
             const options = treeSelect.querySelectorAll('option');
-            
+
             let hasVisibleOptions = false;
-            
+
             options.forEach(option => {
                 if (option.value === '') {
-                    option.style.display = ''; 
+                    option.style.display = '';
                     return;
                 }
-                
+
                 const purl = option.getAttribute('data-purl') || '';
                 if (purl.toLowerCase().includes(filterValue)) {
                     option.style.display = '';
@@ -115,8 +118,7 @@
                     option.style.display = 'none';
                 }
             });
-            
-            // 
+
             if (!hasVisibleOptions && filterValue !== '') {
                 const noResults = treeSelect.querySelector('option[value=""][data-no-results]');
                 if (!noResults) {
@@ -133,15 +135,16 @@
                 }
             }
         });
+
         document.getElementById('clear-filter').addEventListener('click', function() {
             document.getElementById('URL-filter').value = '';
             const treeSelect = document.getElementById('tree');
             const options = treeSelect.querySelectorAll('option');
-            
+
             options.forEach(option => {
                 option.style.display = '';
             });
-            
+
             const noResultsOption = treeSelect.querySelector('option[data-no-results]');
             if (noResultsOption) {
                 noResultsOption.remove();
