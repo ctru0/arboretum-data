@@ -16,12 +16,13 @@ df.rename(columns={'PlantSoon URL': 'PlantSoonURL'}, inplace=True)
 
 unique_names = {}
 for index, row in df.iterrows():
-    scientific_name = row['Scientific Name']
-    if scientific_name in unique_names:
-        unique_names[scientific_name] += 1
-        df.at[index, 'Scientific Name'] = f"{scientific_name}{unique_names[scientific_name]}"
+    original_name = row['Scientific Name']
+    if original_name in unique_names:
+        unique_names[original_name] += 1
+        new_name = f"{original_name} ({unique_names[original_name]})"
+        df.at[index, 'Scientific Name'] = new_name
     else:
-        unique_names[scientific_name] = 1
+        unique_names[original_name] = 1
 
 
 try:
