@@ -34,9 +34,9 @@
             </select>
 
             <div class="filter-group">
-                <label for="URL-filter">Filter by Plantsoon URL:</label>
+                <label for="URL-filter">Select by Plantsoon URL:</label>
                 <input type="text" id="URL-filter" placeholder="Enter Plantsoon URL...">
-                <button type="button" id="clear-filter" class="clear-btn">Clear Filter</button>
+                <button type="button" id="clear-filter" class="clear-btn">Clear</button>
             </div>
 
             <div id="treeMetadata" class="metadata-box">
@@ -78,7 +78,10 @@
     </div>
 
     <script>
-        document.getElementById('tree').addEventListener('change', function() {
+        const treeSelect = document.getElementById('tree');
+        const urlInput = document.getElementById('URL-filter');
+
+        treeSelect.addEventListener('change', function () {
             const treeId = this.value;
             if (!treeId) {
                 document.getElementById('commonName').textContent = '-';
@@ -97,12 +100,10 @@
                 .catch(error => console.error('Error:', error));
         });
 
-        document.getElementById('URL-filter').addEventListener('input', function() {
+        urlInput.addEventListener('input', function () {
             const filterValue = this.value.toLowerCase();
-            const treeSelect = document.getElementById('tree');
             const options = treeSelect.querySelectorAll('option');
-
-            let hasVisibleOptions = false;
+            let matchFound = false;
 
             options.forEach(option => {
                 if (option.value === '') {
@@ -111,45 +112,41 @@
                 }
 
                 const purl = option.getAttribute('data-purl') || '';
-                if (purl.toLowerCase().includes(filterValue)) {
-                    option.style.display = '';
-                    hasVisibleOptions = true;
-                } else {
-                    option.style.display = 'none';
+                const match = purl.toLowerCase().includes(filterValue);
+
+                option.style.display = match ? '' : 'none';
+
+                if (purl.toLowerCase() === filterValue) {
+                    treeSelect.value = option.value;
+                    treeSelect.dispatchEvent(new Event('change'));
+                    matchFound = true;
                 }
             });
 
-            if (!hasVisibleOptions && filterValue !== '') {
-                const noResults = treeSelect.querySelector('option[value=""][data-no-results]');
-                if (!noResults) {
-                    const noResultsOption = document.createElement('option');
-                    noResultsOption.value = '';
-                    noResultsOption.textContent = '-- No trees found --';
-                    noResultsOption.setAttribute('data-no-results', 'true');
-                    treeSelect.appendChild(noResultsOption);
+            const noResultsOption = treeSelect.querySelector('option[data-no-results]');
+            if (!matchFound && filterValue !== '') {
+                if (!noResultsOption) {
+                    const newOption = document.createElement('option');
+                    newOption.value = '';
+                    newOption.textContent = '-- No trees found --';
+                    newOption.setAttribute('data-no-results', 'true');
+                    treeSelect.appendChild(newOption);
                 }
             } else {
-                const noResultsOption = treeSelect.querySelector('option[data-no-results]');
                 if (noResultsOption) {
                     noResultsOption.remove();
                 }
             }
         });
 
-        document.getElementById('clear-filter').addEventListener('click', function() {
-            document.getElementById('URL-filter').value = '';
-            const treeSelect = document.getElementById('tree');
+        document.getElementById('clear-filter').addEventListener('click', function () {
+            urlInput.value = '';
             const options = treeSelect.querySelectorAll('option');
-
-            options.forEach(option => {
-                option.style.display = '';
-            });
-
+            options.forEach(option => option.style.display = '');
             const noResultsOption = treeSelect.querySelector('option[data-no-results]');
-            if (noResultsOption) {
-                noResultsOption.remove();
-            }
+            if (noResultsOption) noResultsOption.remove();
         });
     </script>
+
 </body>
 </html>
