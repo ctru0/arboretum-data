@@ -179,3 +179,119 @@ body {
     }
   }
   
+  /* Form Container */
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.form-container h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Form Fields */
+form label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+form select,
+form textarea,
+form input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.checkbox-group {
+  margin-top: 1rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+/* Metadata Box */
+.metadata-box {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Submit Button */
+.submit-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #004d40;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #00695c;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .form-container {
+      margin: 1rem;
+      padding: 1.5rem;
+  }
+}
+
+/* tree measurements form */
+.measurements {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.measurements h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+/* Grouped measurement inputs */
+.measurement-group {
+  margin-bottom: 1rem;
+}
+
+.measurement-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.measurement-group input[type="number"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  box-sizing: border-box;
+}
