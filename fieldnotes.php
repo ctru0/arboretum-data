@@ -43,6 +43,13 @@
                 ?>
             </select>
             
+            <!-- Select tree by URL (NOT IMPLEMENTED YET) -->
+            <div class="filter-group">
+                <label for="URL-filter">Select by Plantsoon URL:</label>
+                <input type="text" id="URL-filter" placeholder="Enter Plantsoon URL...">
+                <button type="button" id="clear-filter" class="clear-btn">Clear</button>
+            </div>
+
             <!-- Auto-filled Tree Info -->
             <div id="treeMetadata" class="metadata-box">
                 <p><strong>Scientific Name:</strong> <span id="sciName">-</span></p>
