@@ -14,10 +14,15 @@
     <div class="header">
         <img src="assets/masonlogo.png" alt="Mason Logo">
         <h1><a href="index.php">GMU Arboretum</a></h1>
-        <a href="treedata.php">Tree Measurements</a>
-        <a href="fieldnotes.php">Field Notes</a>
-        <a href="view_tree_data.php">View Tree Data</a>
-        <a href="view_fieldnotes.php">View Field Notes</a>
+        
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+
+        <div class="nav-links">
+            <a href="treedata.php">Tree Measurements</a>
+            <a href="fieldnotes.php">Field Notes</a>
+            <a href="view_tree_data.php">View Tree Data</a>
+            <a href="view_fieldnotes.php">View Field Notes</a>
+        </div>
     </div>
 
     <div class="form-container">
@@ -147,6 +152,7 @@
             if (noResultsOption) noResultsOption.remove();
         });
     </script>
-
+    <!-- collapsable nav -->
+    <script src="assets/scripts.js"></script>
 </body>
 </html>

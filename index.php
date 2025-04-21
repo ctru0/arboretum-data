@@ -14,10 +14,15 @@
     <div class="header">
         <img src="assets/masonlogo.png" alt="Mason Logo">
         <h1><a href="index.php">GMU Arboretum</a></h1>
-        <a href="treedata.php">Tree Measurements</a>
-        <a href="fieldnotes.php">Field Notes</a>
-        <a href="view_tree_data.php">View Tree Data</a>
-        <a href="view_fieldnotes.php">View Field Notes</a>
+        
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+
+        <div class="nav-links">
+            <a href="treedata.php">Tree Measurements</a>
+            <a href="fieldnotes.php">Field Notes</a>
+            <a href="view_tree_data.php">View Tree Data</a>
+            <a href="view_fieldnotes.php">View Field Notes</a>
+        </div>
     </div>
 
     <div class="content-container">
@@ -32,5 +37,9 @@
         2. Document tree health, signs and enter notes<br>
         3. View notes in "View All Data" page</p>
     </div>
+
+        <!-- collapsable nav -->
+    <script src="assets/scripts.js"></script>
+
 </body>
 </html>
