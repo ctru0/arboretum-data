@@ -17,10 +17,15 @@
     <div class="header">
         <img src="assets/masonlogo.png" alt="Mason Logo">
         <h1><a href="index.php">GMU Arboretum</a></h1>
-        <a href="treedata.php">Tree Measurements</a>
-        <a href="fieldnotes.php">Field Notes</a>
-        <a href="view_tree_data.php">View Tree Data</a>
-        <a href="view_fieldnotes.php">View Field Notes</a>
+        
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+
+        <div class="nav-links">
+            <a href="treedata.php">Tree Measurements</a>
+            <a href="fieldnotes.php">Field Notes</a>
+            <a href="view_tree_data.php">View Tree Data</a>
+            <a href="view_fieldnotes.php">View Field Notes</a>
+        </div>
     </div>
 
     <div class="data-view-container">
@@ -75,14 +80,14 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Tree</th>
-                        <th>Scientific Name</th>
-                        <th>Height 1 (m)</th>
-                        <th>Height 2 (m)</th>
-                        <th>Height 3 (m)</th>
-                        <th>Circumference (cm)</th>
-                        <th>Submitted By</th>
-                        <th>Date</th>
+                        <th>TREE</th>
+                        <th>SCIENTIFIC NAME</th>
+                        <th>HEIGHT 1 (m)</th>
+                        <th>HEIGHT 2 (m)</th>
+                        <th>HEIGHT 3 (m)</th>
+                        <th>CIRCUMFERENCE (cm)</th>
+                        <th>SUBMITTED BY</th>
+                        <th>DATE</th>
                     </tr>
                 </thead>
                 <tbody id="tree-data-body">
@@ -152,5 +157,7 @@
         });
     });
     </script>
+    <!-- collapsable nav -->
+    <script src="assets/scripts.js"></script>
 </body>
 </html>
