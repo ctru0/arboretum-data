@@ -31,10 +31,6 @@
     <div class="data-view-container">
         <h1>Tree Measurements</h1>
 
-        <div class="action-buttons">
-            <a href="export_tree_data.php?type=ENTRIES" class="download-buton">Download Tree Data (.csv)</a>
-        </div>
-
         <div class="filter-section">
             <div class="filter-group">
                 <label for="tree-filter">Filter by Tree:</label>
@@ -51,7 +47,7 @@
 
             <div class="filter-group">
                 <label for="person-filter">Filter by Person:</label>
-                <input type="text" id="person-filter" placeholder="Enter NETID">
+                <input type="text" id="person-filter" placeholder="Enter NetID...">
             </div>
 
             <div class="filter-group">
@@ -75,6 +71,10 @@
             <button id="reset-filters" class="filter-btn">Reset Filters</button>
         </div>
 
+            <!-- Download CSV Button -->
+            <div class="action-buttons">
+            <a href="export_tree_data.php?type=ENTRIES" class="download-buton">Download Tree Data (.csv)</a>
+        </div>
 
         <div class="data-tab">
             <table>

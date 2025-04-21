@@ -25,7 +25,9 @@
         </div>
     </div>
 
+    <!-- Content -->
     <div class="form-container">
+    <h1>Tree Measurements</h1>
         <form id="treeForm" action="submit_data.php" method="POST">
             <label for="tree">Select Tree:</label>
             <select id="tree" name="TREE_ID" required>

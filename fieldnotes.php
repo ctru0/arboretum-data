@@ -28,7 +28,7 @@
 
     <!-- Content -->
     <div class="form-container">
-        <h1>Tree Field Notes</h1>
+        <h1>Field Notes</h1>
         
         <form id="fieldNotes" action="submit_fieldnotes.php" method="POST">
             <!-- Tree Selection -->
@@ -58,17 +58,19 @@
             </div>
 
             <label for="notes">Field Notes:</label>
-            <textarea id="notes" name="notes" rows="6" placeholder="Enter all observations about the tree"></textarea>
+            <textarea id="notes" name="notes" rows="6" placeholder="Write your observations here. Include any notable characteristics, changes, or concerns.
+"></textarea>
             
             <div class="checkbox-group">
                 <label class="checkbox-label">
                     <input type="checkbox" name="sign_missing" value="1">
-                    Is the sign missing?
+                    Sign is missing or damaged
                 </label>
             </div>
 
             <label for="notes">Sign Notes:</label>
-            <textarea id="sign_notes" name="sign_notes" rows="6" placeholder="Enter all observations about thesignage"></textarea>
+            <textarea id="sign_notes" name="sign_notes" rows="6" placeholder="Write your observations here. Include any notable characteristics, changes, or concerns.
+"></textarea>
             
             <div class="student-info">
                 <label for="netid">Your NetID:</label>
