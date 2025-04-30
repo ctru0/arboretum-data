@@ -30,7 +30,7 @@
 
     <div class="data-view-container">
         <h1>Tree Measurements</h1>
-
+        
         <div class="filter-section">
             <div class="filter-group">
                 <label for="tree-filter">Filter by Tree:</label>
@@ -74,12 +74,14 @@
             <!-- Download CSV Button -->
             <div class="action-buttons">
             <a href="export_tree_data.php?type=ENTRIES" class="download-buton">Download Tree Data (.csv)</a>
+            <button id="delete-selected-btn" class="delete-selected-btn" disabled>Delete Selected</button>
         </div>
 
         <div class="data-tab">
             <table>
                 <thead>
                     <tr>
+                        <th class="checkbox-cell"><input type="checkbox" id="select-all" class="select-all-checkbox"></th>
                         <th>TREE</th>
                         <th>SCIENTIFIC NAME</th>
                         <th>HEIGHT 1 (m)</th>
@@ -93,7 +95,7 @@
                 </thead>
                 <tbody id="tree-data-body">
                     <?php
-                    $query = "SELECT t.COMMON_NAME, t.SCIENTIFIC_NAME, 
+                    $query = "SELECT e.ENTRY_ID,  t.COMMON_NAME, t.SCIENTIFIC_NAME, 
                                     e.HEIGHT_1, e.HEIGHT_2, e.HEIGHT_3, e.AVG_HEIGHT, e.CIRCUMFERENCE, 
                                     e.NETID, e.DATE_SUBMITTED
                                 FROM ENTRIES e
@@ -103,7 +105,8 @@
 
                     while ($row = $result->fetch_assoc()):
                     ?>
-                    <tr>
+                    <tr data-entry-id="<?= $row['ENTRY_ID'] ?>">
+                        <td class="checkbox-cell"><input type="checkbox" class="entry-checkbox" value="<?= $row['ENTRY_ID'] ?>"></td>
                         <td><?= htmlspecialchars($row['COMMON_NAME']) ?></td>
                         <td><?= htmlspecialchars($row['SCIENTIFIC_NAME']) ?></td>
                         <td><?= $row['HEIGHT_1'] ?></td>
@@ -123,6 +126,64 @@
     <!-- Filtering -->
     <script>
     $(document).ready(function() {
+        // Select/deselect all checkboxes
+        $('#select-all').change(function() {
+            $('.entry-checkbox').prop('checked', $(this).prop('checked'));
+            updateDeleteButtonState();
+        });
+
+        // Update "select all" checkbox when individual checkboxes change
+        $(document).on('change', '.entry-checkbox', function() {
+            var allChecked = $('.entry-checkbox:checked').length === $('.entry-checkbox').length;
+            $('#select-all').prop('checked', allChecked);
+            updateDeleteButtonState();
+        });
+
+        // Enable/disable delete button based on selection
+        function updateDeleteButtonState() {
+            var anyChecked = $('.entry-checkbox:checked').length > 0;
+            $('#delete-selected-btn').prop('disabled', !anyChecked);
+        }
+
+        // Delete selected entries
+        $('#delete-selected-btn').click(function() {
+            var selectedIds = [];
+            $('.entry-checkbox:checked').each(function() {
+                selectedIds.push($(this).val());
+            });
+
+            if (selectedIds.length === 0) return;
+
+            if (!confirm('Are you sure you want to delete the selected ' + selectedIds.length + ' entries? This action cannot be undone.')) {
+                return;
+            }
+
+            $.ajax({
+                url: 'delete_entries.php',
+                method: 'POST',
+                data: { entry_ids: selectedIds },
+                success: function(response) {
+                    if (response.success) {
+                        // Remove deleted rows
+                        $('.entry-checkbox:checked').each(function() {
+                            $(this).closest('tr').fadeOut(300, function() {
+                                $(this).remove();
+                            });
+                        });
+                        // Reset select all checkbox
+                        $('#select-all').prop('checked', false);
+                        // Disable delete button
+                        $('#delete-selected-btn').prop('disabled', true);
+                    } else {
+                        alert('Error deleting entries: ' + response.message);
+                    }
+                },
+                error: function() {
+                    alert('Error communicating with server');
+                }
+            });
+        });
+
         function applyFilters() {
             const treeFilter = $('#tree-filter').val();
             const personFilter = $('#person-filter').val().toLowerCase();

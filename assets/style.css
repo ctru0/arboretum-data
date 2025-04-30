@@ -120,6 +120,29 @@ body {
     margin: 10px;
     border-radius: 5px;
   }
+
+
+.delete-selected-btn {
+    color: white;
+    display: inline-block;
+    background-color: #ff4444; 
+    padding: 10px 10px;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+.delete-selected-btn:hover {
+    background-color: #cc0000; 
+}
+.delete-selected-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
   
   /* data table styling */
   .data-tab {
