@@ -85,6 +85,7 @@
                         <th>HEIGHT 1 (m)</th>
                         <th>HEIGHT 2 (m)</th>
                         <th>HEIGHT 3 (m)</th>
+                        <th>AVG HEIGHT (m)</th>
                         <th>CIRCUMFERENCE (cm)</th>
                         <th>SUBMITTED BY</th>
                         <th>DATE</th>
@@ -93,7 +94,7 @@
                 <tbody id="tree-data-body">
                     <?php
                     $query = "SELECT t.COMMON_NAME, t.SCIENTIFIC_NAME, 
-                                    e.HEIGHT_1, e.HEIGHT_2, e.HEIGHT_3, e.CIRCUMFERENCE, 
+                                    e.HEIGHT_1, e.HEIGHT_2, e.HEIGHT_3, e.AVG_HEIGHT, e.CIRCUMFERENCE, 
                                     e.NETID, e.DATE_SUBMITTED
                                 FROM ENTRIES e
                                 JOIN TREES t ON e.TREE_ID = t.TREE_ID
@@ -108,6 +109,7 @@
                         <td><?= $row['HEIGHT_1'] ?></td>
                         <td><?= $row['HEIGHT_2'] ?></td>
                         <td><?= $row['HEIGHT_3'] ?></td>
+                        <td><?= number_format($row['AVG_HEIGHT'], 2) ?></td>
                         <td><?= $row['CIRCUMFERENCE'] ?></td>
                         <td><?= htmlspecialchars($row['NETID']) ?></td>
                         <td><?= date('m/d/Y', strtotime($row['DATE_SUBMITTED'])) ?></td>

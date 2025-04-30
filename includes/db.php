@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 $host = 'localhost';
 $user = 'root';
 $password = 'Password';
@@ -32,6 +35,7 @@ $conn->query("
         HEIGHT_1 DECIMAL(5,2) NOT NULL,
         HEIGHT_2 DECIMAL(5,2) NOT NULL,
         HEIGHT_3 DECIMAL(5,2) NOT NULL,
+        AVG_HEIGHT DECIMAL(5,2) NOT NULL,
         CIRCUMFERENCE DECIMAL(5,2) NOT NULL,
         NETID VARCHAR(15) NOT NULL,
         DATE_SUBMITTED TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
