@@ -34,11 +34,11 @@
             <!-- Tree Selection -->
             <label for="tree">Select Tree:</label>
             <select id="tree" name="TREE_ID" required>
-            <option value="">-- Select a Tree --</option>
+                <option value="">-- Select a Tree --</option>
                 <?php
-                $trees = $conn->query("SELECT TREE_ID, COMMON_NAME FROM TREES ORDER BY COMMON_NAME");
+                $trees = $conn->query("SELECT TREE_ID, SCIENTIFIC_NAME, PURL FROM TREES ORDER BY SCIENTIFIC_NAME");
                 while ($tree = $trees->fetch_assoc()) {
-                    echo "<option value='{$tree['TREE_ID']}'>{$tree['COMMON_NAME']}</option>";
+                    echo "<option value='{$tree['TREE_ID']}' data-purl='{$tree['PURL']}'>{$tree['SCIENTIFIC_NAME']}</option>";
                 }
                 ?>
             </select>
@@ -89,6 +89,8 @@
     </div>
 
     <script>
+        const treeSelect = document.getElementById('tree'); 
+        const urlInput = document.getElementById('URL-filter');
         // Auto-fill tree info when selected
         document.getElementById('tree').addEventListener('change', function() {
             const treeId = this.value;
@@ -105,6 +107,53 @@
                     document.getElementById('PURL').textContent = data.PURL;
                 })
                 .catch(error => console.error('Error:', error));
+        });
+
+        urlInput.addEventListener('input', function () {
+            const filterValue = this.value.toLowerCase();
+            const options = treeSelect.querySelectorAll('option');
+            let matchFound = false;
+
+            options.forEach(option => {
+                if (option.value === '') {
+                    option.style.display = '';
+                    return;
+                }
+
+                const purl = option.getAttribute('data-purl') || '';
+                const match = purl.toLowerCase().includes(filterValue);
+
+                option.style.display = match ? '' : 'none';
+
+                if (purl.toLowerCase() === filterValue) {
+                    treeSelect.value = option.value;
+                    treeSelect.dispatchEvent(new Event('change'));
+                    matchFound = true;
+                }
+            });
+
+            const noResultsOption = treeSelect.querySelector('option[data-no-results]');
+            if (!matchFound && filterValue !== '') {
+                if (!noResultsOption) {
+                    const newOption = document.createElement('option');
+                    newOption.value = '';
+                    newOption.textContent = '-- No trees found --';
+                    newOption.setAttribute('data-no-results', 'true');
+                    treeSelect.appendChild(newOption);
+                }
+            } else {
+                if (noResultsOption) {
+                    noResultsOption.remove();
+                }
+            }
+        });
+
+        document.getElementById('clear-filter').addEventListener('click', function () {
+            urlInput.value = '';
+            const options = treeSelect.querySelectorAll('option');
+            options.forEach(option => option.style.display = '');
+            const noResultsOption = treeSelect.querySelector('option[data-no-results]');
+            if (noResultsOption) noResultsOption.remove();
         });
     </script>
         <!-- collapsable nav -->

@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 
 $host = 'localhost';
 $user = 'root';
-$password = 'Password';
+$password = 'fS4stvLDrWdXs694Dt7csqJo';
 $database = 'ARBORETUM_DB';
 
 $conn = new mysqli($host, $user, $password);
